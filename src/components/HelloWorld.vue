@@ -15,6 +15,7 @@ const count = ref(0);
     <button type="button" @click="count++">count is {{ count }}</button>
     <button @click="changeWeather">点击切换天气</button>
     <h2>今天天气是{{ info }}</h2>
+    <h3>监听改变{{ whatcher }}</h3>
 
     <p>
       Edit
@@ -32,10 +33,10 @@ const count = ref(0);
 </template>
 <script>
 export default {
-  name: 'School',
   data() {
     return {
       isHot: true,
+      whatcher: true,
     };
   },
   computed: {
@@ -46,6 +47,15 @@ export default {
   methods: {
     changeWeather() {
       this.isHot = !this.isHot;
+    },
+  },
+  watch: {
+    isHot: {
+      immediate: true,
+      handler(newValue, oldValue) {
+        console.log('isHot被修改了', newValue, oldValue);
+        this.whatcher = !this.whatcher;
+      },
     },
   },
 };
